@@ -1,0 +1,8 @@
+[application]
+name = "ZXP Manager"
+
+[bundle]
+identifier = "com.example.zxp-manager"
+
+[desktop]
+title = "ZXP Manager"
