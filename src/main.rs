@@ -1,6 +1,7 @@
 use dioxus::prelude::*;
 
 mod data_operations;
+mod file_operations;
 mod components {
     pub mod sidebar;
     pub mod plugins_panel;
