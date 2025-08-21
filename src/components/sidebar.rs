@@ -1,7 +1,39 @@
 use dioxus::prelude::*;
+use crate::file_operations::{select_zxp_file, install_zxp};
 
 #[component]
 pub fn Sidebar() -> Element {
+    let refresh = use_context::<Signal<bool>>();
+    let error = use_context::<Signal<String>>();
+    
+    let install_handler = move |_| {
+        let mut refresh = refresh.clone();
+        let mut error = error.clone();
+        spawn(async move {
+            match select_zxp_file() {
+                Ok(zxp_path) => {
+                    log::info!("Selected ZXP file: {:?}", zxp_path);
+                    match install_zxp(&zxp_path) {
+                        Ok(_) => {
+                            log::info!("ZXP installation successful");
+                            error.set(String::new()); // Clear any previous errors
+                            refresh.set(!refresh()); // Trigger refresh
+                        }
+                        Err(e) => {
+                            let error_msg = format!("Installation failed: {}", e);
+                            log::error!("{}", error_msg);
+                            error.set(error_msg); // Show error in status bar
+                        }
+                    }
+                }
+                Err(e) => {
+                    log::info!("File selection cancelled or failed: {}", e);
+                    // Don't show cancellation as error - it's user choice
+                }
+            }
+        });
+    };
+
     rsx! {
         div { class: "section sidebar",
             div { class: "install-section",
@@ -14,7 +46,11 @@ pub fn Sidebar() -> Element {
                     span { class: "drop-icon", dangerous_inner_html: include_str!("../../assets/icons/download.svg") }
                     div { class: "drop-text", "Drop ZXP files here" }
                     div { class: "drop-subtext", "or click to browse" }
-                    button { class: "browse-btn", "Browse Files" }
+                    button { 
+                        class: "browse-btn",
+                        onclick: install_handler,
+                        "Browse Files" 
+                    }
                 }
             }
 

@@ -294,6 +294,18 @@ body {
   opacity: 0.8;
 }
 
+.remove-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: var(--bg-secondary);
+  border-color: var(--border-primary);
+}
+
+.remove-btn:disabled:hover {
+  background: var(--bg-secondary);
+  border-color: var(--border-primary);
+}
+
 .remove-btn svg {
   width: 1rem;
   height: 1rem;
@@ -310,4 +322,10 @@ body {
   align-items: center;
   font-size: var(--font-size-sm);
   color: var(--text-muted);
+}
+
+.error-message {
+  color: var(--action-danger);
+  border-left: 3px solid var(--action-danger-border);
+  padding-left: var(--space-sm);
 }

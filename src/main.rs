@@ -12,6 +12,7 @@ use components::sidebar::Sidebar;
 use components::plugins_panel::PluginsPanel;
 use components::status_bar::StatusBar;
 
+
 static FAVICON: Asset = asset!("/assets/favicon.ico");
 static THEMES_CSS: Asset = asset!("/assets/themes.css");
 static MAIN_CSS: Asset = asset!("/assets/main.css");
@@ -36,6 +37,12 @@ fn main() {
 
 #[component]
 fn App() -> Element {
+    // Create and provide the shared refresh signal
+    let _refresh_context = use_context_provider(|| Signal::new(false));
+    
+    // Create and provide the shared error message signal
+    let _error_context = use_context_provider(|| Signal::new(String::new()));
+    
     rsx! {
         document::Link { rel: "icon", href: FAVICON }
         document::Style {

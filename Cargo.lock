@@ -6025,6 +6025,7 @@ version = "0.1.0"
 dependencies = [
  "dioxus",
  "dirs",
+ "libc",
  "log",
  "quick-xml 0.38.2",
  "rfd 0.15.4",

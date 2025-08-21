@@ -2,6 +2,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use quick_xml::events::Event;
 use quick_xml::reader::Reader;
+use std::os::unix::fs::MetadataExt;
 
 // Constants
 const CEP_EXTENSIONS_PATH: &str = "~/Library/Application Support/Adobe/CEP/extensions/";
@@ -14,6 +15,7 @@ pub struct Plugin {
     pub size: String,
     pub path: PathBuf,
     pub plugin_type: PluginType,
+    pub can_remove: bool,
 }
 
 #[derive(Debug, Clone)]
@@ -61,6 +63,18 @@ impl From<std::io::Error> for PluginError {
 }
 
 // Data operations
+pub fn can_remove_plugin(plugin_path: &Path) -> bool {
+    // Check if current user owns the plugin directory
+    match fs::metadata(plugin_path) {
+        Ok(metadata) => {
+            let file_uid = metadata.uid();
+            let current_uid = unsafe { libc::getuid() };
+            file_uid == current_uid
+        }
+        Err(_) => false, // If we can't read metadata, assume we can't remove
+    }
+}
+
 pub fn scan_cep_plugins() -> Result<Vec<Plugin>, PluginError> {
     // 1. Use system-wide CEP extensions directory
     let cep_path = Path::new("/Library/Application Support/Adobe/CEP/extensions/");
@@ -103,6 +117,7 @@ pub fn scan_cep_plugins() -> Result<Vec<Plugin>, PluginError> {
                     size,
                     path: path.clone(),
                     plugin_type,
+                    can_remove: can_remove_plugin(&path),
                 });
             }
             Err(e) => {
