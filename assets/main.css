@@ -11,14 +11,14 @@ body {
   flex-direction: column;
   height: 100vh;
   min-width: 62.5rem; /* Match window minimum from main.rs (1000px) */
-  gap: var(--space-sm);
-  padding: var(--space-sm);
+  gap: var(--space-xs);
+  padding: var(--space-xs);
 }
 
 .main-content {
   display: flex;
   flex: 1;
-  gap: var(--space-sm);
+  gap: var(--space-xs);
   min-height: 0; /* Allow shrinking below content size */
   align-items: flex-start;
 }
@@ -42,22 +42,6 @@ body {
 .plugins-panel {
   flex: 1;
   min-width: min(31.25rem, calc(100vw - 30rem)); /* Responsive minimum width */
-}
-
-.section-title {
-  color: var(--text-primary);
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-semibold);
-  margin-bottom: var(--space-xl);
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-}
-
-.section-title span svg {
-  width: 1.25rem;
-  height: 1.25rem;
-  stroke: currentColor;
 }
 
 .install-section {

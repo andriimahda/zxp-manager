@@ -21,10 +21,6 @@ pub fn PluginsPanel() -> Element {
 
     rsx! {
         div { class: "section plugins-panel",
-            h2 { class: "section-title",
-                span { dangerous_inner_html: include_str!("../../assets/icons/package-open.svg") }
-                "Installed Plugins"
-            }
 
             div { class: "plugins-table-container",
                 table { class: "plugins-table",
