@@ -1,13 +1,10 @@
 use dioxus::prelude::*;
 use crate::file_operations::{select_zxp_file, install_zxp};
-use crate::message::{show_error, show_success, show_info};
+use crate::message::{show_error, show_success, show_info, trigger_refresh};
 
 #[component]
 pub fn Sidebar() -> Element {
-    let refresh = use_context::<Signal<bool>>();
-    
     let install_handler = move |_| {
-        let mut refresh = refresh.clone();
         spawn(async move {
             match select_zxp_file() {
                 Ok(zxp_path) => {
@@ -16,7 +13,7 @@ pub fn Sidebar() -> Element {
                         Ok(_) => {
                             log::info!("ZXP installation successful");
                             show_success("Plugin installed successfully!".to_string());
-                            refresh.set(!refresh()); // Trigger refresh
+                            trigger_refresh();
                         }
                         Err(e) => {
                             let error_msg = format!("Installation failed: {}", e);
