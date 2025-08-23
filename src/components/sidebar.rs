@@ -58,32 +58,6 @@ pub fn Sidebar() -> Element {
                     div { class: "setting-value", "~/Library/Application Support/Adobe/CEP/extensions/" }
                 }
 
-                div { class: "setting-item",
-                    label { class: "setting-label", "Test Message Types" }
-                    div { class: "test-buttons",
-                        button { 
-                            class: "browse-btn",
-                            onclick: move |_| {
-                                show_success("Test success message - should disappear in 3 seconds".to_string());
-                            },
-                            "Success" 
-                        }
-                        button { 
-                            class: "browse-btn",
-                            onclick: move |_| {
-                                show_error("Test error message - should disappear in 4 seconds".to_string());
-                            },
-                            "Error" 
-                        }
-                        button { 
-                            class: "browse-btn",
-                            onclick: move |_| {
-                                show_info("Test info message - should disappear in 5 seconds".to_string());
-                            },
-                            "Info" 
-                        }
-                    }
-                }
 
             }
         }

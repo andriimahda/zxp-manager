@@ -326,8 +326,3 @@ body {
   border-left-color: var(--action-info-border);
 }
 
-.test-buttons {
-  display: flex;
-  gap: var(--space-sm);
-  flex-wrap: wrap;
-}
