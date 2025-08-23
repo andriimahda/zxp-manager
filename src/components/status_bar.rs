@@ -1,13 +1,11 @@
 use dioxus::prelude::*;
-use crate::message::MESSAGE;
+use crate::message::{MESSAGE, REFRESH_TRIGGER};
 
 #[component]
 pub fn StatusBar() -> Element {
-    let refresh = use_context::<Signal<bool>>();
-    
     // React to refresh signal to count plugins
     let plugin_count = use_resource(move || {
-        let _ = refresh(); // Create dependency on refresh
+        let _ = REFRESH_TRIGGER(); // Create dependency on global signal
         async move {
             match crate::data_operations::scan_cep_plugins() {
                 Ok(plugins) => plugins.len(),
