@@ -38,8 +38,6 @@ fn main() {
 
 #[component]
 fn App() -> Element {
-    // Create and provide the shared refresh signal
-    let _refresh_context = use_context_provider(|| Signal::new(false));
     
     rsx! {
         document::Link { rel: "icon", href: FAVICON }
