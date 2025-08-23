@@ -1,15 +1,13 @@
 use dioxus::prelude::*;
 use crate::data_operations::PluginType;
 use crate::file_operations::remove_plugin;
-use crate::message::{show_error, show_success};
+use crate::message::{show_error, show_success, trigger_refresh, REFRESH_TRIGGER};
 
 #[component]
 pub fn PluginsPanel() -> Element {
-    let refresh = use_context::<Signal<bool>>();
-    
     // React to the shared refresh signal
     let plugins = use_resource(move || {
-        let _ = refresh(); // Create dependency on the signal
+        let _ = REFRESH_TRIGGER(); // Create dependency on global signal
         async move {
             crate::data_operations::scan_cep_plugins().unwrap_or_else(|e| {
                 log::error!("Failed to scan plugins: {}", e);
@@ -37,7 +35,6 @@ pub fn PluginsPanel() -> Element {
                             for plugin in plugin_list {
                                 {
                                     let plugin_path = plugin.path.clone(); // Clone outside the closure
-                                    let refresh = refresh.clone(); // Clone refresh for this button
                                     rsx! {
                                         tr { key: "{plugin.path.display()}",
                                             td {
@@ -55,7 +52,6 @@ pub fn PluginsPanel() -> Element {
                                                     disabled: !plugin.can_remove,
                                                     onclick: move |_| {
                                                         log::info!("Remove button clicked for: {:?}", plugin_path);
-                                                        let mut refresh = refresh.clone();
                                                         let plugin_path = plugin_path.clone();
                                                         spawn(async move {
                                                             log::info!("Starting plugin removal for: {:?}", plugin_path);
@@ -63,7 +59,7 @@ pub fn PluginsPanel() -> Element {
                                                                 Ok(_) => {
                                                                     log::info!("Plugin removed successfully: {:?}", plugin_path);
                                                                     show_success("Plugin removed successfully!".to_string());
-                                                                    refresh.set(!refresh()); // Trigger refresh
+                                                                    trigger_refresh();
                                                                 }
                                                                 Err(e) => {
                                                                     let error_msg = format!("Failed to remove plugin: {}", e);
