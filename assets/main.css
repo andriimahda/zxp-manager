@@ -308,8 +308,26 @@ body {
   color: var(--text-muted);
 }
 
-.error-message {
-  color: var(--action-danger);
-  border-left: 3px solid var(--action-danger-border);
+.message {
   padding-left: var(--space-sm);
+  border-left: 3px solid transparent;
+  color: var(--text-muted);
+}
+
+.message[data-type="Error"] {
+  border-left-color: var(--action-danger-border);
+}
+
+.message[data-type="Success"] {
+  border-left-color: var(--action-primary-border);
+}
+
+.message[data-type="Info"] {
+  border-left-color: var(--action-info-border);
+}
+
+.test-buttons {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
 }

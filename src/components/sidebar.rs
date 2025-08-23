@@ -1,15 +1,13 @@
 use dioxus::prelude::*;
 use crate::file_operations::{select_zxp_file, install_zxp};
-use crate::message::show_error;
+use crate::message::{show_error, show_success, show_info};
 
 #[component]
 pub fn Sidebar() -> Element {
     let refresh = use_context::<Signal<bool>>();
-    let error = use_context::<Signal<String>>();
     
     let install_handler = move |_| {
         let mut refresh = refresh.clone();
-        let mut error = error.clone();
         spawn(async move {
             match select_zxp_file() {
                 Ok(zxp_path) => {
@@ -17,13 +15,13 @@ pub fn Sidebar() -> Element {
                     match install_zxp(&zxp_path) {
                         Ok(_) => {
                             log::info!("ZXP installation successful");
-                            error.set(String::new()); // Clear any previous errors
+                            show_success("Plugin installed successfully!".to_string());
                             refresh.set(!refresh()); // Trigger refresh
                         }
                         Err(e) => {
                             let error_msg = format!("Installation failed: {}", e);
                             log::error!("{}", error_msg);
-                            show_error(error, error_msg);
+                            show_error(error_msg);
                         }
                     }
                 }
@@ -64,14 +62,29 @@ pub fn Sidebar() -> Element {
                 }
 
                 div { class: "setting-item",
-                    label { class: "setting-label", "Test Error Timeout" }
-                    button { 
-                        class: "browse-btn",
-                        onclick: move |_| {
-                            let error = error.clone();
-                            show_error(error, "Test error message - should disappear in 4 seconds".to_string());
-                        },
-                        "Test Error" 
+                    label { class: "setting-label", "Test Message Types" }
+                    div { class: "test-buttons",
+                        button { 
+                            class: "browse-btn",
+                            onclick: move |_| {
+                                show_success("Test success message - should disappear in 3 seconds".to_string());
+                            },
+                            "Success" 
+                        }
+                        button { 
+                            class: "browse-btn",
+                            onclick: move |_| {
+                                show_error("Test error message - should disappear in 4 seconds".to_string());
+                            },
+                            "Error" 
+                        }
+                        button { 
+                            class: "browse-btn",
+                            onclick: move |_| {
+                                show_info("Test info message - should disappear in 5 seconds".to_string());
+                            },
+                            "Info" 
+                        }
                     }
                 }
 

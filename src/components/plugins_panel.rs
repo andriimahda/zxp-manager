@@ -1,12 +1,11 @@
 use dioxus::prelude::*;
 use crate::data_operations::PluginType;
 use crate::file_operations::remove_plugin;
-use crate::message::show_error;
+use crate::message::{show_error, show_success};
 
 #[component]
 pub fn PluginsPanel() -> Element {
     let refresh = use_context::<Signal<bool>>();
-    let error = use_context::<Signal<String>>();
     
     // React to the shared refresh signal
     let plugins = use_resource(move || {
@@ -39,7 +38,6 @@ pub fn PluginsPanel() -> Element {
                                 {
                                     let plugin_path = plugin.path.clone(); // Clone outside the closure
                                     let refresh = refresh.clone(); // Clone refresh for this button
-                                    let error = error.clone(); // Clone error for this button
                                     rsx! {
                                         tr { key: "{plugin.path.display()}",
                                             td {
@@ -58,20 +56,19 @@ pub fn PluginsPanel() -> Element {
                                                     onclick: move |_| {
                                                         log::info!("Remove button clicked for: {:?}", plugin_path);
                                                         let mut refresh = refresh.clone();
-                                                        let mut error = error.clone();
                                                         let plugin_path = plugin_path.clone();
                                                         spawn(async move {
                                                             log::info!("Starting plugin removal for: {:?}", plugin_path);
                                                             match remove_plugin(&plugin_path) {
                                                                 Ok(_) => {
                                                                     log::info!("Plugin removed successfully: {:?}", plugin_path);
-                                                                    error.set(String::new()); // Clear any previous errors
+                                                                    show_success("Plugin removed successfully!".to_string());
                                                                     refresh.set(!refresh()); // Trigger refresh
                                                                 }
                                                                 Err(e) => {
                                                                     let error_msg = format!("Failed to remove plugin: {}", e);
                                                                     log::error!("{}", error_msg);
-                                                                    show_error(error, error_msg);
+                                                                    show_error(error_msg);
                                                                 }
                                                             }
                                                         });

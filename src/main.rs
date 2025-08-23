@@ -41,9 +41,6 @@ fn App() -> Element {
     // Create and provide the shared refresh signal
     let _refresh_context = use_context_provider(|| Signal::new(false));
     
-    // Create and provide the shared error message signal
-    let _error_context = use_context_provider(|| Signal::new(String::new()));
-    
     rsx! {
         document::Link { rel: "icon", href: FAVICON }
         document::Style {

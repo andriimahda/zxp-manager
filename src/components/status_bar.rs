@@ -1,8 +1,8 @@
 use dioxus::prelude::*;
+use crate::message::MESSAGE;
 
 #[component]
 pub fn StatusBar() -> Element {
-    let error = use_context::<Signal<String>>();
     let refresh = use_context::<Signal<bool>>();
     
     // React to refresh signal to count plugins
@@ -16,11 +16,17 @@ pub fn StatusBar() -> Element {
         }
     });
     
+    // Read message once to avoid multiple borrows
+    let current_message = MESSAGE.read();
+    
     rsx! {
         div { class: "status-bar",
-            if !error().is_empty() {
-                // Show error message
-                div { class: "error-message", "{error()}" }
+            if !current_message.content.is_empty() {
+                div { 
+                    class: "message",
+                    "data-type": "{current_message.msg_type:?}",
+                    "{current_message.content}" 
+                }
             } else {
                 // Show normal status
                 match &*plugin_count.read() {
