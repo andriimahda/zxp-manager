@@ -26,6 +26,15 @@ pub static MESSAGE: GlobalSignal<Message> = Signal::global(|| Message {
 // This allows us to cancel the previous message's timeout when a new message appears
 static MESSAGE_CANCEL_TOKEN: GlobalSignal<Option<CancellationToken>> = Signal::global(|| None);
 
+// Global refresh trigger signal - accessible from anywhere
+pub static REFRESH_TRIGGER: GlobalSignal<bool> = Signal::global(|| false);
+
+pub fn trigger_refresh() {
+    // Read current value, then write opposite
+    let current = REFRESH_TRIGGER();
+    *REFRESH_TRIGGER.write() = !current;
+}
+
 pub fn show_message(content: String, msg_type: MessageType) {
     // Step 1: Cancel any existing timer to prevent old messages from interfering
     // If there's already a message timer running, we cancel it immediately
