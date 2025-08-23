@@ -2,6 +2,7 @@ use dioxus::prelude::*;
 
 mod data_operations;
 mod file_operations;
+mod message;
 mod components {
     pub mod sidebar;
     pub mod plugins_panel;

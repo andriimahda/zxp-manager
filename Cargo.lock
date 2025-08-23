@@ -6029,5 +6029,6 @@ dependencies = [
  "log",
  "quick-xml 0.38.2",
  "rfd 0.15.4",
+ "tokio",
  "zip",
 ]

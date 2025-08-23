@@ -1,6 +1,7 @@
 use dioxus::prelude::*;
 use crate::data_operations::PluginType;
 use crate::file_operations::remove_plugin;
+use crate::message::show_error;
 
 #[component]
 pub fn PluginsPanel() -> Element {
@@ -70,7 +71,7 @@ pub fn PluginsPanel() -> Element {
                                                                 Err(e) => {
                                                                     let error_msg = format!("Failed to remove plugin: {}", e);
                                                                     log::error!("{}", error_msg);
-                                                                    error.set(error_msg); // Show error in status bar
+                                                                    show_error(error, error_msg);
                                                                 }
                                                             }
                                                         });

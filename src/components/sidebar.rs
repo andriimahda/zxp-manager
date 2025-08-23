@@ -1,5 +1,6 @@
 use dioxus::prelude::*;
 use crate::file_operations::{select_zxp_file, install_zxp};
+use crate::message::show_error;
 
 #[component]
 pub fn Sidebar() -> Element {
@@ -22,7 +23,7 @@ pub fn Sidebar() -> Element {
                         Err(e) => {
                             let error_msg = format!("Installation failed: {}", e);
                             log::error!("{}", error_msg);
-                            error.set(error_msg); // Show error in status bar
+                            show_error(error, error_msg);
                         }
                     }
                 }
@@ -60,6 +61,18 @@ pub fn Sidebar() -> Element {
                 div { class: "setting-item",
                     label { class: "setting-label", "User Extensions Path" }
                     div { class: "setting-value", "~/Library/Application Support/Adobe/CEP/extensions/" }
+                }
+
+                div { class: "setting-item",
+                    label { class: "setting-label", "Test Error Timeout" }
+                    button { 
+                        class: "browse-btn",
+                        onclick: move |_| {
+                            let error = error.clone();
+                            show_error(error, "Test error message - should disappear in 4 seconds".to_string());
+                        },
+                        "Test Error" 
+                    }
                 }
 
             }
