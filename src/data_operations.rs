@@ -8,7 +8,7 @@ use std::os::unix::fs::MetadataExt;
 const CEP_EXTENSIONS_PATH: &str = "~/Library/Application Support/Adobe/CEP/extensions/";
 
 // Data structures
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 pub struct Plugin {
     pub name: String,
     pub version: String,
@@ -18,7 +18,7 @@ pub struct Plugin {
     pub can_remove: bool,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 pub enum PluginType {
     Native,      // Bundle ID starts with "com.adobe."
     Installed,   // Third-party plugins
