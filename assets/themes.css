@@ -45,10 +45,10 @@
 
   /* Colors - Action */
   --action-primary: #03674c;
-  --action-primary-border: #07a568;
+  --action-primary-border: #22c55e;
   --action-primary-hover: #2ea043;
   --action-info: #064487;
-  --action-info-border: #0371d7;
+  --action-info-border: #1f8eff;
   --action-info-hover: #0860ca;
   --action-danger: #4b5563;
   --action-danger-hover: #840d30;
@@ -95,7 +95,7 @@
   --radius-lg: 0.75rem;
 
   /* Layout */
-  --sidebar-width: 25rem;
+  --sidebar-width: 20rem;
   --container-max-width: 75rem;
   --container-min-width: 50rem;
 

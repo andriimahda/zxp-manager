@@ -135,7 +135,7 @@ body {
 
 .plugins-header {
   display: grid;
-  grid-template-columns: 1fr auto auto auto;
+  grid-template-columns: 8fr 2fr 2fr 1fr;
   gap: var(--space-md);
   padding: var(--space-md);
   background: var(--bg-secondary);
@@ -144,6 +144,7 @@ body {
   font-weight: var(--font-weight-semibold);
   font-size: var(--font-size-base);
   color: var(--text-primary);
+  align-items: center;
 }
 
 /* Responsive grid layout */
@@ -178,13 +179,15 @@ body {
 
 .plugin-card {
   display: grid;
-  grid-template-columns: 1fr auto auto auto;
+  grid-template-columns: 8fr 2fr 2fr 1fr;
   gap: var(--space-md);
-  padding: var(--space-md);
+  padding-block: var(--space-xs);
+  padding-inline: var(--space-sm);
   border-bottom: var(--border-width) solid var(--bg-tertiary);
   transition: background-color var(--transition-fast);
   position: relative;
   isolation: isolate;
+  align-items: center;
 }
 
 /* Responsive plugin card */
@@ -225,6 +228,7 @@ body {
 }
 
 .plugin-name {
+  font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   color: var(--text-primary);
   display: flex;
@@ -234,38 +238,12 @@ body {
   min-width: 0;
 }
 
-.plugin-tags {
-  display: flex;
-  gap: var(--space-xs);
-}
-
-.tag {
-  font-size: var(--font-size-xxs);
-  font-weight: var(--font-weight-medium);
-  padding: var(--space-xs) var(--space-sm);
-  border-radius: var(--radius-sm);
-  color: white;
-  text-transform: uppercase;
-  letter-spacing: 0.025em;
-}
-
-.tag-blue {
-  background: var(--tag-blue);
-  border: solid 1px var(--tag-border-blue);
-}
-
-.tag-green {
-  background: var(--tag-green);
-  border: solid 1px var(--tag-border-green);
-}
-
 .badge-native,
 .badge-installed {
   font-size: var(--font-size-xxs);
   font-weight: var(--font-weight-medium);
   padding: var(--space-xs) var(--space-sm);
   border-radius: var(--radius-sm);
-  color: white;
   text-transform: uppercase;
   letter-spacing: 0.025em;
   margin-left: var(--space-sm);
@@ -273,11 +251,13 @@ body {
 
 .badge-native {
   background: var(--tag-blue);
+  color: var(--tag-border-blue);
   border: solid 1px var(--tag-border-blue);
 }
 
 .badge-installed {
   background: var(--tag-green);
+  color: var(--tag-border-green);
   border: solid 1px var(--tag-border-green);
 }
 
@@ -285,12 +265,14 @@ body {
   color: var(--text-muted);
   font-family: var(--font-family-mono);
   font-size: var(--font-size-sm);
+  text-align: left;
 }
 
 .plugin-size {
   color: var(--text-muted);
   font-family: var(--font-family-mono);
   font-size: var(--font-size-sm);
+  text-align: left;
 }
 
 .plugin-actions {
