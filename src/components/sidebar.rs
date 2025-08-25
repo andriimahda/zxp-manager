@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 use crate::file_operations::{select_zxp_file, install_zxp};
-use crate::message::{show_error, show_success, show_info, trigger_refresh};
+use crate::message::{show_error, show_success, show_info, trigger_refresh, mark_plugin_as_newly_installed};
 
 #[component]
 pub fn Sidebar() -> Element {
@@ -10,8 +10,9 @@ pub fn Sidebar() -> Element {
                 Ok(zxp_path) => {
                     log::info!("Selected ZXP file: {:?}", zxp_path);
                     match install_zxp(&zxp_path) {
-                        Ok(_) => {
+                        Ok(installed_path) => {
                             log::info!("ZXP installation successful");
+                            mark_plugin_as_newly_installed(installed_path);
                             show_success("Plugin installed successfully!".to_string());
                             trigger_refresh();
                         }

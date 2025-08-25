@@ -1,6 +1,7 @@
 use dioxus::prelude::*;
 use std::time::Duration;
 use tokio_util::sync::CancellationToken;
+use std::path::PathBuf;
 
 #[derive(Clone, Debug)]
 pub struct Message {
@@ -28,6 +29,17 @@ static MESSAGE_CANCEL_TOKEN: GlobalSignal<Option<CancellationToken>> = Signal::g
 
 // Global refresh trigger signal - accessible from anywhere
 pub static REFRESH_TRIGGER: GlobalSignal<bool> = Signal::global(|| false);
+
+// Global signal for last installed plugin (for animation)
+pub static LAST_INSTALLED_PLUGIN: GlobalSignal<Option<PathBuf>> = Signal::global(|| None);
+
+pub fn mark_plugin_as_newly_installed(path: PathBuf) {
+    *LAST_INSTALLED_PLUGIN.write() = Some(path);
+}
+
+pub fn clear_newly_installed_plugin() {
+    *LAST_INSTALLED_PLUGIN.write() = None;
+}
 
 pub fn trigger_refresh() {
     // Read current value, then write opposite

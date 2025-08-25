@@ -51,7 +51,7 @@ pub fn select_zxp_file() -> Result<PathBuf, FileOperationError> {
     Ok(file_path)
 }
 
-pub fn install_zxp(zxp_path: &Path) -> Result<(), FileOperationError> {
+pub fn install_zxp(zxp_path: &Path) -> Result<PathBuf, FileOperationError> {
     // 1. Validate ZXP file exists and has correct extension
     // 2. Open ZXP (ZIP) file for reading  
     // 3. Parse manifest.xml from ZIP to get Extension ID
@@ -97,7 +97,7 @@ pub fn install_zxp(zxp_path: &Path) -> Result<(), FileOperationError> {
         .map_err(|_| FileOperationError::ExtractError)?;
     
     log::info!("ZXP installation completed for: {}", extension_id);
-    Ok(())
+    Ok(target_dir)
 }
 
 pub fn remove_plugin(plugin_path: &Path) -> Result<(), FileOperationError> {

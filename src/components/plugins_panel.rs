@@ -1,17 +1,20 @@
-use dioxus::prelude::*;
 use crate::data_operations::{Plugin, PluginType};
 use crate::file_operations::remove_plugin;
-use crate::message::{show_error, show_success, trigger_refresh, REFRESH_TRIGGER, LAST_INSTALLED_PLUGIN, clear_newly_installed_plugin};
+use crate::message::{
+    LAST_INSTALLED_PLUGIN, REFRESH_TRIGGER, clear_newly_installed_plugin, show_error, show_success,
+    trigger_refresh,
+};
+use dioxus::prelude::*;
 use std::path::PathBuf;
 
 #[component]
 fn PluginHeader() -> Element {
     rsx! {
-        div { class: "plugins-header",
+        div { class: "plugin-grid-row plugins-header",
             div { class: "header-cell plugin-header", "Plugin" }
             div { class: "header-cell version-header", "Version" }
             div { class: "header-cell size-header", "Size" }
-            div { class: "header-cell actions-header", "Actions" }
+            div { class: "header-cell actions-header", "Remove" }
         }
     }
 }
@@ -29,8 +32,8 @@ fn PluginBadge(plugin_type: PluginType) -> Element {
 #[component]
 fn RemoveButton(plugin_path: PathBuf, can_remove: bool) -> Element {
     rsx! {
-        button { 
-            class: "action-btn remove-btn",
+        button {
+            class: "remove-btn",
             disabled: !can_remove,
             onclick: move |_| {
                 log::info!("Remove button clicked for: {:?}", plugin_path);
@@ -59,9 +62,9 @@ fn RemoveButton(plugin_path: PathBuf, can_remove: bool) -> Element {
 #[component]
 fn PluginCard(plugin: Plugin, is_newly_installed: bool) -> Element {
     rsx! {
-        div { 
+        div {
             key: "{plugin.path.display()}",
-            class: if is_newly_installed { "plugin-card newly-added" } else { "plugin-card" },
+            class: if is_newly_installed { "plugin-grid-row plugin-card newly-added" } else { "plugin-grid-row plugin-card" },
             div { class: "plugin-info",
                 div { class: "plugin-name",
                     "{plugin.name}"
@@ -90,7 +93,7 @@ pub fn PluginsPanel() -> Element {
     });
 
     let last_installed = LAST_INSTALLED_PLUGIN();
-    
+
     {
         let last_installed_clone = last_installed.clone();
         use_effect(move || {
@@ -106,7 +109,7 @@ pub fn PluginsPanel() -> Element {
             div { class: "plugins-grid",
                 if let Some(plugin_list) = &*plugins.read() {
                     for plugin in plugin_list {
-                        PluginCard { 
+                        PluginCard {
                             plugin: plugin.clone(),
                             is_newly_installed: last_installed.as_ref() == Some(&plugin.path)
                         }
@@ -118,3 +121,4 @@ pub fn PluginsPanel() -> Element {
         }
     }
 }
+

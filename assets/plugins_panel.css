@@ -8,7 +8,7 @@
 /* Grid Layout */
 .plugin-grid-row {
   display: grid;
-  grid-template-columns: 8fr 2fr 2fr 1fr;
+  grid-template-columns: 8fr 2fr 2fr 2fr;
   gap: var(--space-md);
   padding-inline: var(--space-sm);
   align-items: center;
@@ -24,8 +24,9 @@
   padding-block: var(--space-md);
 }
 
-.header-cell {
-  padding: 0;
+.version-header,
+.size-header {
+  text-align: left;
 }
 
 .actions-header {
@@ -125,42 +126,70 @@
   text-align: left;
 }
 
-/* Action Buttons */
-.action-btn {
+/* Remove Button */
+.remove-btn {
   padding: var(--space-xs);
   border-radius: var(--radius-sm);
   cursor: pointer;
   transition: var(--transition-fast);
-  border: var(--border-width) solid transparent;
+  border: var(--border-width) solid var(--border-primary);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
-}
-
-.action-btn:hover {
-  background: var(--bg-hover-light);
-}
-
-.action-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.remove-btn {
-  color: var(--text-muted);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
 }
 
 .remove-btn:hover {
-  color: var(--action-danger-border);
+  background: var(--action-danger-hover);
+  border-color: var(--action-danger-border);
+  color: #fff;
+}
+
+.remove-btn:active {
+  opacity: 0.8;
+}
+
+.remove-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: var(--bg-secondary);
+  border-color: var(--border-primary);
 }
 
 .remove-btn svg {
   width: 1rem;
   height: 1rem;
+  stroke: currentColor;
 }
 
 /* New Plugin Animation */
+@keyframes new-plugin-highlight {
+  0% {
+    opacity: 0;
+    background-color: var(--action-primary);
+    transform: translateX(-100%);
+  }
+  15% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  75% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  90% {
+    opacity: 1;
+    transform: translateX(100%);
+    background-color: var(--action-primary);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100%);
+    background-color: transparent;
+  }
+}
+
 .newly-added {
   overflow: hidden;
   position: relative;
@@ -172,28 +201,6 @@
   inset: 0;
   background-color: transparent;
   z-index: -1;
-  animation: new-plugin-highlight 2.5s ease-in-out;
+  animation: new-plugin-highlight 3s ease-in-out;
   border-radius: inherit;
-}
-
-@keyframes new-plugin-highlight {
-  0% {
-    opacity: 0;
-    background-color: var(--action-primary);
-    transform: translateX(-100%);
-  }
-  20% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  80% {
-    opacity: 1;
-    transform: translateX(0);
-    background-color: var(--action-primary);
-  }
-  100% {
-    opacity: 0;
-    transform: translateX(100%) scaleX(0);
-    background-color: transparent;
-  }
 }
