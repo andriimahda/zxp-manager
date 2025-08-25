@@ -1,0 +1,199 @@
+/* Plugins Panel Styles */
+
+.plugins-panel {
+  flex: 1;
+  min-width: min(31.25rem, calc(100vw - 30rem)); /* Responsive minimum width */
+}
+
+/* Grid Layout */
+.plugin-grid-row {
+  display: grid;
+  grid-template-columns: 8fr 2fr 2fr 1fr;
+  gap: var(--space-md);
+  padding-inline: var(--space-sm);
+  align-items: center;
+}
+
+.plugins-header {
+  background: var(--bg-secondary);
+  border: var(--border-width) solid var(--border-primary);
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-base);
+  color: var(--text-muted);
+  padding-block: var(--space-md);
+}
+
+.header-cell {
+  padding: 0;
+}
+
+.actions-header {
+  text-align: center;
+}
+
+.plugins-grid {
+  flex: 1;
+  background: var(--bg-primary);
+  border: var(--border-width) solid var(--border-primary);
+  border-top: none;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.plugin-card {
+  border-bottom: var(--border-width) solid var(--bg-tertiary);
+  transition: background-color var(--transition-fast);
+  position: relative;
+  isolation: isolate;
+  padding-block: var(--space-xs);
+}
+
+.plugin-card:hover {
+  background: var(--bg-secondary);
+}
+
+.plugin-card:last-child {
+  border-bottom: none;
+}
+
+.plugin-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.plugin-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-message {
+  padding: var(--space-lg);
+  text-align: center;
+  color: var(--text-muted);
+}
+
+/* Plugin Content */
+.plugin-name {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.badge-native,
+.badge-installed {
+  font-size: var(--font-size-xxs);
+  font-weight: var(--font-weight-medium);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  margin-left: var(--space-sm);
+}
+
+.badge-native {
+  background: var(--tag-blue);
+  color: var(--tag-border-blue);
+  border: solid 1px var(--tag-border-blue);
+}
+
+.badge-installed {
+  background: var(--tag-green);
+  color: var(--tag-border-green);
+  border: solid 1px var(--tag-border-green);
+}
+
+.plugin-version {
+  color: var(--text-muted);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  text-align: left;
+}
+
+.plugin-size {
+  color: var(--text-muted);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  text-align: left;
+}
+
+/* Action Buttons */
+.action-btn {
+  padding: var(--space-xs);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  border: var(--border-width) solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+.action-btn:hover {
+  background: var(--bg-hover-light);
+}
+
+.action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.remove-btn {
+  color: var(--text-muted);
+}
+
+.remove-btn:hover {
+  color: var(--action-danger-border);
+}
+
+.remove-btn svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* New Plugin Animation */
+.newly-added {
+  overflow: hidden;
+  position: relative;
+}
+
+.newly-added::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: transparent;
+  z-index: -1;
+  animation: new-plugin-highlight 2.5s ease-in-out;
+  border-radius: inherit;
+}
+
+@keyframes new-plugin-highlight {
+  0% {
+    opacity: 0;
+    background-color: var(--action-primary);
+    transform: translateX(-100%);
+  }
+  20% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  80% {
+    opacity: 1;
+    transform: translateX(0);
+    background-color: var(--action-primary);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100%) scaleX(0);
+    background-color: transparent;
+  }
+}

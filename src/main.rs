@@ -4,19 +4,21 @@ mod data_operations;
 mod file_operations;
 mod message;
 mod components {
-    pub mod sidebar;
     pub mod plugins_panel;
+    pub mod sidebar;
     pub mod status_bar;
 }
 
-use components::sidebar::Sidebar;
 use components::plugins_panel::PluginsPanel;
+use components::sidebar::Sidebar;
 use components::status_bar::StatusBar;
-
 
 static FAVICON: Asset = asset!("/assets/favicon.ico");
 static THEMES_CSS: Asset = asset!("/assets/themes.css");
 static MAIN_CSS: Asset = asset!("/assets/main.css");
+static SIDEBAR_CSS: Asset = asset!("/assets/sidebar.css");
+static STATUS_BAR_CSS: Asset = asset!("/assets/status_bar.css");
+static PLUGINS_PANEL_CSS: Asset = asset!("/assets/plugins_panel.css");
 static INTER_FONT: Asset = asset!("/assets/fonts/Inter-VariableFont_opsz,wght.ttf");
 static GOOGLE_SANS_CODE_FONT: Asset = asset!("/assets/fonts/GoogleSansCode-VariableFont_wght.ttf");
 
@@ -28,8 +30,8 @@ fn main() {
             Config::default().with_window(
                 WindowBuilder::new()
                     .with_title("ZXP Manager")
-                    .with_inner_size(LogicalSize::new(1200.0, 800.0))
-                    .with_min_inner_size(LogicalSize::new(1000.0, 700.0))
+                    .with_inner_size(LogicalSize::new(900.0, 600.0))
+                    .with_min_inner_size(LogicalSize::new(800.0, 500.0))
                     .with_resizable(true),
             ),
         )
@@ -38,7 +40,6 @@ fn main() {
 
 #[component]
 fn App() -> Element {
-    
     rsx! {
         document::Link { rel: "icon", href: FAVICON }
         document::Style {
@@ -62,6 +63,9 @@ fn App() -> Element {
 
         document::Stylesheet { href: THEMES_CSS }
         document::Stylesheet { href: MAIN_CSS }
+        document::Stylesheet { href: SIDEBAR_CSS }
+        document::Stylesheet { href: STATUS_BAR_CSS }
+        document::Stylesheet { href: PLUGINS_PANEL_CSS }
 
         div { class: "container",
             div { class: "main-content",
@@ -72,4 +76,3 @@ fn App() -> Element {
         }
     }
 }
-

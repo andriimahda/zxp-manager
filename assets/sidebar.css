@@ -1,0 +1,125 @@
+/* Sidebar Styles */
+
+.sidebar {
+  width: var(--sidebar-width);
+  min-width: var(--sidebar-width);
+}
+
+.install-section {
+  margin-bottom: var(--space-3xl);
+}
+
+.install-btn {
+  width: 100%;
+  background: var(--action-primary);
+  color: #fff;
+  border: var(--border-width) solid var(--action-primary-border);
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.install-btn:hover {
+  background: var(--action-primary-hover);
+}
+
+.install-btn:disabled {
+  background: var(--bg-tertiary);
+  color: var(--text-subtle);
+  border-color: var(--border-primary);
+  cursor: not-allowed;
+}
+
+/* Drop Zone - matching original class names */
+.drop-zone {
+  border: var(--border-width-thick) dashed var(--border-primary);
+  border-radius: var(--radius-md);
+  padding: var(--space-3xl) var(--space-xl);
+  text-align: center;
+  background: var(--bg-tertiary);
+  transition: var(--transition-fast);
+  cursor: pointer;
+}
+
+.drop-zone:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-hover);
+}
+
+.drop-icon {
+  margin-bottom: var(--space-lg);
+  display: block;
+  opacity: 0.7;
+}
+
+.drop-icon svg {
+  width: 2.5rem;
+  height: 2.5rem;
+  stroke: currentColor;
+}
+
+.drop-text {
+  font-size: var(--font-size-md);
+  color: var(--text-primary);
+  margin-bottom: var(--space-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.drop-subtext {
+  color: var(--text-muted);
+  font-size: var(--font-size-base);
+  margin-bottom: var(--space-lg);
+}
+
+.browse-btn {
+  background: var(--action-primary);
+  color: #fff;
+  border: var(--border-width) solid var(--action-primary-border);
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.browse-btn:hover {
+  opacity: 0.8;
+}
+
+/* Settings */
+.settings-section {
+  margin-top: var(--space-2xl);
+}
+
+.settings-section h3 {
+  color: var(--text-primary);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-lg);
+}
+
+.setting-item {
+  margin-bottom: var(--space-lg);
+}
+
+.setting-label {
+  font-size: var(--font-size-base);
+  color: var(--text-muted);
+  margin-bottom: var(--space-xs);
+  display: block;
+}
+
+.setting-value {
+  color: var(--text-primary);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  background: var(--bg-tertiary);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  border: var(--border-width) solid var(--border-primary);
+  word-break: break-all;
+}

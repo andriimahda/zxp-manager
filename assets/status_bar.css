@@ -1,0 +1,31 @@
+/* Status Bar Styles */
+
+.status-bar {
+  background: var(--bg-tertiary);
+  border-top: var(--border-width) solid var(--border-primary);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-2xl);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+}
+
+.message {
+  padding-left: var(--space-sm);
+  border-left: 3px solid transparent;
+  color: var(--text-muted);
+}
+
+.message[data-type="Error"] {
+  border-left-color: var(--action-danger-border);
+}
+
+.message[data-type="Success"] {
+  border-left-color: var(--action-primary-border);
+}
+
+.message[data-type="Info"] {
+  border-left-color: var(--action-info-border);
+}
